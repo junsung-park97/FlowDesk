@@ -1,13 +1,11 @@
-import { Button } from "./shared/ui/atoms/button";
+import LoginPage from "@/pages/login/LoginPage";
 
 function App() {
   return (
     <>
-      <Button>클릭하세요</Button>
+      <LoginPage />
     </>
   );
 }
-
-//깃 테스트
 
 export default App;
