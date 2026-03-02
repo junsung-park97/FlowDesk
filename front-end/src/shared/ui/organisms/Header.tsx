@@ -1,4 +1,4 @@
-import { Button } from "../atoms/button";
+import { Button } from "@/shared/ui/atoms/Button";
 
 const Header = () => {
     return (

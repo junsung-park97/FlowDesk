@@ -6,14 +6,18 @@ import Header from "@/shared/ui/organisms/Header";
 const LoginPage = () => {
   return (
     <>
-      <Header />
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="flex flex-col gap-14 mx-auto w-[476px]">
-          <AuthHeader title="Login" subtitle1="만나서 반가워요 👋🏻" subtitle2="로그인 후 서비스를 이용해보세요." />
-          <LoginForm />
-          <AuthLinks />
-        </div>
+      
+      <div className="flex flex-col min-h-screen bg-background">
+        <Header />
+        <main className="flex-1 flex items-center justify-center">
+          <div className="mx-auto flex w-full max-w-[476px] flex-col gap-14">
+            <AuthHeader title="Login" subtitle1="만나서 반가워요 👋🏻" subtitle2="로그인 후 서비스를 이용해보세요." />
+            <LoginForm />
+            <AuthLinks />
+          </div>
+        </main>
       </div>
+      
     </>
   );
 };
