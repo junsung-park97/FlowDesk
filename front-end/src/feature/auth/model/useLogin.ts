@@ -7,14 +7,23 @@ export const useLogin = () => {
 
   const handleLogin = async (email: string, _password: string) => {
     try {
-      // const respon = await api.post('/login', {email, password});
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password: _password }),
+      });
 
-      const mockUser = { email: email, name: "예비 사용자" };
-      const mockToken = "jwt-access-token-1234";
+      if (!response.ok) {
+        throw new Error(`Login failed: ${response.status}`);
+      }
 
-      setCredentials(mockUser, mockToken);
-
-      navigate("/dashboard");
+      const data = await response.json();
+      if (data.user && data.accessToken) {
+        setCredentials(data.user, data.accessToken);
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error(error);
     }
