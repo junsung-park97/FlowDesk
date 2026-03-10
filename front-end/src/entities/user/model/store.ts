@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 interface User {
   email: string;
@@ -16,27 +17,42 @@ interface UserStore {
   logout: () => void;
 }
 
-export const useUserStore = create<UserStore>((set) => ({
-  // 초기값
-  user: null,
-  isAuthenticated: false,
-  accessToken: null,
-
-  // 액션구현: 로그인 성공 시 데이터 저장
-  setCredentials: (user: User, token: string) => {
-    set({
-      user,
-      isAuthenticated: true,
-      accessToken: token,
-    });
-  },
-
-  // 액션구현: 로그아웃 시 데이터 삭제
-  logout: () => {
-    set({
+export const useUserStore = create<UserStore>()(
+  persist(
+    (set) => ({
+      // 초기값
       user: null,
       isAuthenticated: false,
       accessToken: null,
-    });
-  },
-}));
+
+      // 로그인(액션)
+      setCredentials: (user: User, token: string) => {
+        set({
+          user,
+          isAuthenticated: true,
+          accessToken: token,
+        });
+      },
+
+      // 로그아웃(액션)
+      logout: () => {
+        set({
+          user: null,
+          isAuthenticated: false,
+          accessToken: null,
+        });
+      },
+    }),
+    {
+      // storage에 저장될 키 이름
+      name: "user-auth-storage",
+      // 사용할 저장소 이름
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({
+        user: state.user,
+        isAuthenticated: state.isAuthenticated,
+        accessToken: state.accessToken,
+      }),
+    },
+  ),
+);
