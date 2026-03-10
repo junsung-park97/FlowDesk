@@ -1,0 +1,7 @@
+# 공통 규칙
+* text=auto eol=lf
+
+# 이미지 바이너리
+*.png binary
+*.jpg binary
+*.svg text eol=lf
