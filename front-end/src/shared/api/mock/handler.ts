@@ -1,7 +1,7 @@
 import { http, HttpResponse } from "msw";
 
 export const handlers = [
-  http.post("/api/login", async () => {
+  http.post("/login", async () => {
     return HttpResponse.json(
       {
         user: {
